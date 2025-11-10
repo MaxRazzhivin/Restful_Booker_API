@@ -1,0 +1,23 @@
+name: API Tests (Docker + Pytest + Allure)
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t restful-tests .
+
+      - name: Run tests in container
+        run: docker run --rm -v $(pwd)/reports:/app/reports restful-tests
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: reports/
