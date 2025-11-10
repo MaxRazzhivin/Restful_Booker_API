@@ -24,11 +24,11 @@ jobs:
 
       - name: Generate Allure Report
         run: |
-            sudo apt-get update
+          sudo apt-get update
           sudo apt-get install -y wget unzip openjdk-17-jre
           wget https://github.com/allure-framework/allure2/releases/download/2.35.1/allure-2.35.1.zip
-          unzip allure-2.35.1.zip -d allure
-          allure/allure-2.35.1/bin/allure generate reports --clean -o allure-report
+          unzip allure-2.35.1.zip -d ./allure-cli
+          ./allure-cli/allure-2.35.1/bin/allure generate reports --clean -o allure-report
 
       - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
