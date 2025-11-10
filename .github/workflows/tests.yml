@@ -21,3 +21,16 @@ jobs:
         with:
           name: allure-results
           path: reports/
+
+      - name: Generate Allure Report
+        run: |
+            pip install allure-pytest
+            wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.29.0.tgz
+            tar -zxvf allure-2.29.0.tgz
+            ./allure-2.29.0/bin/allure generate reports --clean -o allure-report
+
+      - name: Deploy Allure report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
