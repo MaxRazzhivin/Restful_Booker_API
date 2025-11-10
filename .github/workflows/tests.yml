@@ -24,10 +24,11 @@ jobs:
 
       - name: Generate Allure Report
         run: |
-            pip install allure-pytest
-            wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.29.0.tgz
-            tar -zxvf allure-2.29.0.tgz
-            ./allure-2.29.0/bin/allure generate reports --clean -o allure-report
+            sudo apt-get update
+          sudo apt-get install -y wget unzip openjdk-17-jre
+          wget https://github.com/allure-framework/allure2/releases/download/2.35.1/allure-2.35.1.zip
+          unzip allure-2.35.1.zip -d allure
+          allure/allure-2.35.1/bin/allure generate reports --clean -o allure-report
 
       - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
